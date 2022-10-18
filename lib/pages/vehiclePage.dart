@@ -43,8 +43,17 @@ class VehiclePage extends StatelessWidget {
                         child: CircleAvatar(
                             radius: 30,
                             // ignore: unrelated_type_equality_checks
-                            backgroundImage:
-                                NetworkImage(backend.carList[index]["image"]!)),
+                            // backgroundImage: NetworkImage(
+                            //     backend.carList[index]["image"]!))
+
+                            backgroundImage: backend.carList[index]
+                                        ["imageFromURL"] ==
+                                    "true"
+                                ? NetworkImage(backend.carList[index]["image"]!)
+                                : Image(
+                                    image: FileImage(
+                                        File(backend.carList[index]["image"]!)),
+                                  ).image),
                       ),
 
                       // Padding

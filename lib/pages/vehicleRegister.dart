@@ -24,10 +24,11 @@ class _VehicleRegisterState extends State<VehicleRegister> {
   final _yearController = TextEditingController();
 
   void handleSubmit() {
-    if (_modelController.text == "") return;
+    if (_brandController.text == "") return;
 
+    print(_pickedFile!.path);
     Provider.of<TemporaryBackend>(context, listen: false)
-        .addCar(_brandController.text, urlImage);
+        .addCar(_brandController.text, _pickedFile!.path);
 
     Navigator.of(context).pop();
   }
