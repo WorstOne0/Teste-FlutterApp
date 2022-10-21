@@ -150,12 +150,15 @@ class TemporaryBackend extends ChangeNotifier {
 
   void editCar(
       int carID, String brand, String model, String plate, String year) {
-    //int intCarID = int.parse(carID);
+    Map<String, String> car = _carList
+        .firstWhere((element) => element["id"] == carID.toString(), orElse: () {
+      return {"": ""};
+    });
 
-    _carList[carID].update("brand", (value) => brand);
-    _carList[carID].update("model", (value) => model);
-    _carList[carID].update("plate", (value) => plate);
-    _carList[carID].update("year", (value) => year);
+    car.update("brand", (value) => brand);
+    car.update("model", (value) => model);
+    car.update("plate", (value) => plate);
+    car.update("year", (value) => year);
 
     notifyListeners();
   }
