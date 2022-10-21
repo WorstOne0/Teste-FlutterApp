@@ -17,18 +17,20 @@ class _VehicleRegisterState extends State<VehicleRegister> {
 
   XFile? _pickedFile;
 
-  String urlImage = "";
-  final _modelController = TextEditingController();
   final _brandController = TextEditingController();
+  final _modelController = TextEditingController();
   final _plateController = TextEditingController();
   final _yearController = TextEditingController();
 
   void handleSubmit() {
     if (_brandController.text == "") return;
 
-    print(_pickedFile!.path);
-    Provider.of<TemporaryBackend>(context, listen: false)
-        .addCar(_brandController.text, _pickedFile!.path);
+    Provider.of<TemporaryBackend>(context, listen: false).addCar(
+        _brandController.text,
+        _modelController.text,
+        _plateController.text,
+        _yearController.text,
+        _pickedFile!.path);
 
     Navigator.of(context).pop();
   }
@@ -39,70 +41,8 @@ class _VehicleRegisterState extends State<VehicleRegister> {
     setState(() {
       _pickedFile = image;
     });
-  }
 
-  Widget bottomSheet() {
-    return Container(
-      height: 120,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: [
-            Text(
-              "Escolha o metodo",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue),
-            ),
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Row(children: [
-                        Icon(Icons.language),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          "URL",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        )
-                      ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    child: GestureDetector(
-                      onTap: () {
-                        takeImage();
-                      },
-                      child: Row(children: [
-                        Icon(Icons.image),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text("Galeria")
-                      ]),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+    Navigator.pop(context);
   }
 
   @override
@@ -214,6 +154,70 @@ class _VehicleRegisterState extends State<VehicleRegister> {
                   "Adicionar",
                   style: TextStyle(color: Colors.white),
                 ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 120,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          children: [
+            Text(
+              "Escolha o metodo",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            ),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Row(children: [
+                        Icon(Icons.language),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "URL",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        )
+                      ]),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    child: GestureDetector(
+                      onTap: () {
+                        takeImage();
+                      },
+                      child: Row(children: [
+                        Icon(Icons.image),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text("Galeria")
+                      ]),
+                    ),
+                  )
+                ],
               ),
             )
           ],
